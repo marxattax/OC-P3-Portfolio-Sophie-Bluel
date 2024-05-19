@@ -1,6 +1,12 @@
+/* Adresses API */
+
+const urlWorks = "http://localhost:5678/api/works"
+const urlCate = "http://localhost:5678/api/categories"
+const urlLogin = "http://localhost:5678/api/users/login"
+
 /* Recuperation des donnees API */
 
-fetch("http://localhost:5678/api/categories")
+fetch(urlCate)
 .then(resp => resp.json())
 .then(dataCate => {
 
@@ -8,7 +14,7 @@ fetch("http://localhost:5678/api/categories")
     window.localStorage.setItem("categorie", JSON.stringify(cate))
 })
 
-fetch("http://localhost:5678/api/works")
+fetch(urlWorks)
 .then(resp => resp.json())
 .then(dataWorks => {
 
@@ -26,9 +32,3 @@ const categorie = JSON.parse(lsCategorie)
 
 const lsWorks = window.localStorage.getItem("works")
 const works = JSON.parse(lsWorks)
-
-/* Adresses API */
-
-const urlWorks = "http://localhost:5678/api/works"
-const urlCate = "http://localhost:5678/api/categories"
-const urlLogin = "http://localhost:5678/api/users/login"
