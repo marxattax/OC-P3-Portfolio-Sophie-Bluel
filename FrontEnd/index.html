@@ -13,7 +13,7 @@
 	<meta name="description" content="">
 	
 	<script src="url-strorage-functions.js"></script>
-	<script src="affichageWorks.js"></script>
+	<script src="affichageWorks.js" defer></script>
 	<script src="boiteModale.js" defer></script>
 	<script src="contenuModale.js" defer></script>
 
@@ -46,6 +46,7 @@
 									<h4>jpg, png : 4mo max</h4>
 								</div>
 								<div class="form-description-photo">
+									<label for="titre">Titre</label>
 									<input type="text" name="titre" required>
 									<label for="categorie">Catégorie</label>
 									<input list="categories" name="choix-categories" required>
@@ -62,11 +63,11 @@
 		</div>
 	</aside>
 <header>
-	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+	<a href="index.html"><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></a>
 	<nav>
 		<ul>
-			<li>projets</li>
-			<li>contact</li>
+			<li><a href="#portfolio">projets</a></li>
+			<li><a href="#contact">contact</a></li>
 			<li><a href="login.html">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>

@@ -61,6 +61,9 @@ header {
 
 	padding: 50px;
 }
+header a {
+	text-decoration: none;
+}
 main {
 	max-width: 1140px;
 	margin: auto;
@@ -102,7 +105,7 @@ nav li {
 	font-size: 1.2em;
 }
 
-li:hover {
+li a {
 	color: #B1663C;
 }
 
@@ -179,7 +182,7 @@ li a:hover {
 	text-align:center;
 	margin-bottom: 2em;
 }
-.filtres button {
+.button-filtre {
 	text-align:center;
 	color: #1D6154;
 	font-family: 'Syne';
@@ -192,10 +195,11 @@ li a:hover {
 	margin: 1em;
 	padding: 8px;
 }
-.filtres button:hover {
+.button-active, .button-filtre:hover {
 	background-color: #1D6154;
 	color: white;
 }
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -257,5 +261,14 @@ footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em;
+}
+
+.figWork {
+	animation: affichage 300ms linear;
+}
+
+@keyframes affichage {
+	0% {opacity:0; transform:translateY(25%);}
+	100% {opacity:1; transform:translateY(0);}
 }
 
