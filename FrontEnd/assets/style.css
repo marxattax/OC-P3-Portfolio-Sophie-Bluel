@@ -268,16 +268,7 @@ footer nav ul {
 }
 
 .figWork-animation {
-	animation: affichage 900ms cubic-bezier(.96,-0.06,.84,1.82);
-}
+	opacity: 1;
+	transition: 900ms cubic-bezier(.96,-0.06,.84,1.82);
+}	
 
-@keyframes affichage {
-	from {
-		opacity: 0;
-	}
-
-	to {
-		opacity: 1;
-	}
-	
-}
