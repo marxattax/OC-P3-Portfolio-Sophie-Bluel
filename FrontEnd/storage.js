@@ -4,24 +4,6 @@ const urlWorks = "http://localhost:5678/api/works"
 const urlCate = "http://localhost:5678/api/categories"
 const urlLogin = "http://localhost:5678/api/users/login"
 
-/* Recuperation des donnees API */
-
-fetch(urlCate)
-.then(resp => resp.json())
-.then(dataCate => {
-
-    const cate = Array.from(dataCate)
-    window.localStorage.setItem("categorie", JSON.stringify(cate))
-})
-
-fetch(urlWorks)
-.then(resp => resp.json())
-.then(dataWorks => {
-
-    const works = Array.from(dataWorks)
-    window.localStorage.setItem("works", JSON.stringify(works))
-})
-
 /* Recuperation du local storage */
 
 const token = window.localStorage.getItem("token");
@@ -32,3 +14,17 @@ const categorie = JSON.parse(lsCategorie)
 
 const lsWorks = window.localStorage.getItem("works")
 const works = JSON.parse(lsWorks)
+
+/* Changement si user connecte */
+const loginLink = document.querySelector("#login-link")
+if(userId) {
+        loginLink.removeChild(loginLink.firstChild)
+        const logout = document.createElement("a")
+        logout.innerText = "logout"
+        logout.href = "index.html"
+        logout.addEventListener("click", () => {
+            window.localStorage.removeItem("userId")
+            window.localStorage.removeItem("token")
+        })
+        loginLink.appendChild(logout)
+}

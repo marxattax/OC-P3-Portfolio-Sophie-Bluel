@@ -34,9 +34,10 @@
     height: 100%;
 }
 .slider1 {
+    width:100%;
     position: absolute;
     z-index: 1;
-    text-align: center;
+    text-align: center;   
 }
 
 .slider2 {
@@ -61,7 +62,8 @@
     justify-content: right;
 }
 #file-upload {
-    opacity: 0;
+    display: none;
+    cursor: pointer;
 }
 #label-upload {
     width: 173px;
@@ -82,11 +84,6 @@
     flex-direction: column;
     align-items: center;
 }
-.form-ajout-photo  {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 .ajout-photo {
     width: 420px;
     padding: 20px;
@@ -95,6 +92,10 @@
     align-items: center;
     background-color: #E8F1F6;
     border-radius: 5px;
+    cursor: pointer;
+}
+.ajout-photo label {
+    cursor: pointer;
 }
 .form-description-photo {
     display: flex;
@@ -117,8 +118,18 @@
     width: 420px;
     height: 50px;
     border: 0;
+    box-shadow: 2px 2px 2px 2px rgba(0 0 0 / 9%);
+}
+
+.form-description-photo select {
+    margin-top: 10px;
+    padding-left: 10px;
+    width: 420px;
+    height: 50px;
+    border: 0;
     box-shadow: 2px 2px 2px 2px rgba(0 0 0 / 9%)
 }
+
 .icone-image {
     color: #CBD6DC;
     font-size: 76px;
@@ -135,9 +146,12 @@
 background-color: #A7A7A7;
 cursor:auto;
 }
+
 .galerie-photos {
+    margin-top: 10px;
     display: flex;
     flex-flow: row wrap;
+    align-items: center;
 }
 
 .btn-ajout {
@@ -157,7 +171,8 @@ cursor:auto;
     width: 80px;
     height: 120px;
     margin: 10px;
-    background-size: contain;
+    background-size:cover;
+    background-position: center;
 
     display: flex;
     flex-direction: row-reverse;
@@ -167,6 +182,7 @@ cursor:auto;
     height: 10px;
     margin: 5px;
     color: black;
+    cursor: pointer;
 }
 
 .close-cross {

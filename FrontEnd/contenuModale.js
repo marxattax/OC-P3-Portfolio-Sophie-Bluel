@@ -1,23 +1,16 @@
-/*** Recuperation des noms de categories pour les inclure dans le selecteur ***/
+if(userId) {
 
+/*** Recuperation des noms de categories pour les inclure dans le selecteur ***/
+const choixCategorie = document.querySelector(".choix-categorie")
 categorie.forEach((item) => {
-	const choixCategorie = document.querySelector(".choix-categorie")
 	const cateName = document.createElement("option")
+	cateName.value = item.id
 	cateName.innerText = item.name
 	cateName.className = "categorie"
-	cateName.id = item.id
 	choixCategorie.appendChild(cateName)
 })
 	
 /**** Affichage de la galerie photo *****/
-
-/* Bouton close */
-const btnClose = document.querySelectorAll(".close")
-btnClose.forEach(function(btn) {
-	btn.addEventListener("click", (e) => {
-		close(e)
-	})
-})
 
 /* Bouton retour galerie */
 const boutonRetour = document.querySelector("#bouton-retour")
@@ -50,14 +43,16 @@ works.forEach((item) => {
 	projet.appendChild(trash)
 
 	/* Requete pour supprimer le projet de l'Api */
-	const trashId = {id: parseInt(projet.id)}
-	const chargeUtile = JSON.stringify(trashId)
-	trash.addEventListener ("click", () => {
-		fetch(urlWorks + '/' + projet.id, {
-   	 		method: "DELETE",
-			headers: { "Authorization" : "Bearer " + token},
-    		body: chargeUtile
-    	})
+	const chargeUtile = projet.id
+	trash.addEventListener ("click", async () => {
+		if(window.confirm("Êtes-vous sûr de vouloir supprimer cette photo ?")) {
+			fetch(urlWorks + '/' + projet.id, {
+   	 			method: "DELETE",
+				headers: { "Authorization" : "Bearer " + token},
+    			body: chargeUtile
+    		})
+			location.reload()
+		}
 	})
 })
 
@@ -89,9 +84,8 @@ function removeSelect() {
 				/* L'input submit n'est plus disabled si le formulaire est bien rempli */
 				const formFull = document.querySelector("#formAjout")
 				const inputTitre = document.querySelector('[name=titre]')
-				const inputObjets = document.querySelector('[name=choix-categories]')
+				const inputObjets = document.querySelector('[name=categorie]')
 				const btnValider = document.querySelector("#btn-valider")
-
 				formFull.oninput = function() {
 					if (inputTitre.validity.valueMissing == false && inputObjets.validity.valueMissing == false) {
 						btnValider.removeAttribute("disabled")
@@ -106,19 +100,22 @@ function removeSelect() {
 
 				/* Puis on crée un FormFata pour le formulaire d'ajout */
 				const formAjout = document.getElementById("formAjout")
-				formAjout.onsubmit = async (e) => {
+				formAjout.onsubmit = (e) => {
+					e.preventDefault()
 					const formData = new FormData(formAjout)
 					formData.append('image', image, image.name)
 					formData.append('title', e.target.querySelector('[name=titre]').value)
-					formData.append('category', e.target.querySelector('.categorie').id)
+					formData.append('category', e.target.querySelector('[name=categorie]').value)
 
 					/* et on envoie la requete a l'API */
-					await fetch("http://localhost:5678/api/works", {
+					fetch("http://localhost:5678/api/works", {
             		method: "POST",
 	    	        headers: { "Authorization" : "Bearer " + token },
     	    	    body: formData
         	    	})
+					setTimeout(() => {location.reload()}, 500)
 				}
+
 			}
 
 			/* Sinon on affiche que le type d'image n'est pas valide */
@@ -158,4 +155,6 @@ function returnFileSize(number) {
 	else if (number >= 1048576) {
     	return (number / 1048576).toFixed(1) + 'MB'
   	}
+}
+
 }

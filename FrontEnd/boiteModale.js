@@ -1,12 +1,12 @@
-/* affiche le bouton modifier pour ouvrir la modale si l'utilisateur est connecte */
 if(userId) {
-    const modifier = document.querySelector(".modifier")
-    const boutonModif = document.createElement("a")
-    boutonModif.href = "#"
-    boutonModif.id = "modale"
-    boutonModif.innerHTML = "<i class='fa-regular fa-pen-to-square'></i> modifier"
-    modifier.appendChild(boutonModif)
-}
+
+/* affiche le bouton modifier pour ouvrir la modale si l'utilisateur est connecte */
+const modifier = document.querySelector(".modifier")
+const boutonModif = document.createElement("a")
+boutonModif.href = "#"
+boutonModif.id = "modale"
+boutonModif.innerHTML = "<i class='fa-regular fa-pen-to-square'></i> modifier"
+modifier.appendChild(boutonModif)
 
 let boiteModale
 
@@ -32,6 +32,14 @@ const close = function (e) {
     e.preventDefault()
     boiteModale.style.display = "none"
 }
+
+/* Bouton close */
+const btnClose = document.querySelectorAll(".close")
+btnClose.forEach(function(btn) {
+	btn.addEventListener("click", (e) => {
+		close(e)
+	})
+})
 
 /* Fonction qui empêche la propagation de la fonction close au contenu de la boite */
 
@@ -72,3 +80,5 @@ window.addEventListener('keydown', function(e) {
         focusModal(e)
     }
 })
+
+}
