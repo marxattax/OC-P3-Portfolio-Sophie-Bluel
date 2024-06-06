@@ -29,31 +29,38 @@ boutonAjout.addEventListener("click", () => {
 })
 
 /* Création de la galerie des projets */
-const miniature = document.querySelector(".galerie-photos")
-works.forEach((item) => {
-	const projet = document.createElement("div")
-	projet.className = "bg-image"
-	projet.style.backgroundImage = "url('" + item.imageUrl + "')"
-	projet.id = item.id
+fetch(urlWorks)
+.then(resp => resp.json())
+.then(dataworks => {
+const galerie = document.querySelector(".galerie-photos")
+for(var i=0; i<dataworks.length; i++) {
+	const miniature = document.createElement("div")
+	miniature.className = "bg-image"
+	miniature.style.backgroundImage = "url('" + dataworks[i].imageUrl + "')"
+	const id = dataworks[i].id
+	miniature.id = id
+	miniature.classList.add("projet" + id)
 
 	/* Rajoute un bouton pour supprimer le projet */
 	const trash = document.createElement("i")
 	trash.className = "fa-solid fa-trash-can trash"
-	miniature.appendChild(projet)
-	projet.appendChild(trash)
+	galerie.appendChild(miniature)
+	miniature.appendChild(trash)
 
 	/* Requete pour supprimer le projet de l'Api */
-	const chargeUtile = projet.id
 	trash.addEventListener ("click", async () => {
-		if(window.confirm("Êtes-vous sûr de vouloir supprimer cette photo ?")) {
-			fetch(urlWorks + '/' + projet.id, {
+			await fetch(urlWorks + '/' + id, {
    	 			method: "DELETE",
 				headers: { "Authorization" : "Bearer " + token},
-    			body: chargeUtile
+    			body: id
     		})
-			location.reload()
-		}
+			.then(resp => {
+				if (resp.status == "204") {
+					return document.querySelectorAll(".projet" + id).forEach(el => el.remove())
+				}
+			})
 	})
+}
 })
 
 /*** Script pour ajouter un nouveau projet ***/
@@ -100,7 +107,7 @@ function removeSelect() {
 
 				/* Puis on crée un FormFata pour le formulaire d'ajout */
 				const formAjout = document.getElementById("formAjout")
-				formAjout.onsubmit = (e) => {
+				formAjout.onsubmit = async (e) => {
 					e.preventDefault()
 					const formData = new FormData(formAjout)
 					formData.append('image', image, image.name)
@@ -108,12 +115,35 @@ function removeSelect() {
 					formData.append('category', e.target.querySelector('[name=categorie]').value)
 
 					/* et on envoie la requete a l'API */
-					fetch("http://localhost:5678/api/works", {
+					await fetch(urlWorks, {
             		method: "POST",
 	    	        headers: { "Authorization" : "Bearer " + token },
     	    	    body: formData
         	    	})
-					setTimeout(() => {location.reload()}, 500)
+					.then(resp => {
+						if(resp.status == "201") {
+							while(formAjout.firstChild) {
+							formAjout.removeChild(formAjout.firstChild)
+							}
+							const succes = document.createElement("p")
+							succes.innerText = "Votre projet a bien été ajouté !"
+							succes.style.marginTop = "50px"
+							const retour = document.createElement("a")
+							retour.href = ""
+							retour.innerText = "Revenir à l'accueil"
+							retour.addEventListener("click", () => {
+								location.reload()
+							})
+							retour.style.marginTop = "30px"
+							formAjout.appendChild(succes)
+							formAjout.appendChild(retour)
+						}
+						else {
+							const erreur = document.createElement("p")
+							erreur.innerText = "Erreur. Veuillez remplir correctement le formulaire."
+							formAjout.appendChild(erreur)
+						}
+					})
 				}
 
 			}

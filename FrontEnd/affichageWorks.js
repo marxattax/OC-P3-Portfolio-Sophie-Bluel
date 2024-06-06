@@ -58,11 +58,8 @@ function affichageWorks(target) {
         const figureWorks = document.querySelector("#works")
         const work = document.createElement("figure")
         work.className = "figWork"
-        const delayAffichage = (randomNumber(300, 2000))
-        function animation() {
-            work.className = "figWork-animation"
-        }
-        setTimeout(animation, delayAffichage)
+        work.classList.add("projet" + target[i].id)
+
 
         const image = document.createElement("img")
         image.src = target[i].imageUrl

@@ -263,12 +263,4 @@ footer nav ul {
 	margin: 2em;
 }
 
-.figWork {
-	opacity: 0;
-}
-
-.figWork-animation {
-	opacity: 1;
-	transition: 900ms cubic-bezier(.96,-0.06,.84,1.82);
-}	
 
