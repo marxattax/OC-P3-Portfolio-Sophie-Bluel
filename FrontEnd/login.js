@@ -21,8 +21,7 @@ function connexion() {
 
             else {
                 return resp.json()
-                .then(dataLog => {
-                    const login = dataLog
+                .then(login => {
                     const token = window.localStorage.setItem("token", login.token);
                     const userId = window.localStorage.setItem("userId", login.userId);
                     const submit = document.querySelector("#connexion")

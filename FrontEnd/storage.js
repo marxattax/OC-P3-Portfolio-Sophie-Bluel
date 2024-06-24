@@ -27,4 +27,7 @@ if(userId) {
             window.localStorage.removeItem("token")
         })
         loginLink.appendChild(logout)
+
+        const modeEdition = document.querySelector(".mode-edition")
+        modeEdition.style = "display:block;"
 }

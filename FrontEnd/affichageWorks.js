@@ -1,4 +1,3 @@
-
 /* Bouton affichage sans filtre */
 const divFiltres = document.querySelector("#filtres")
 const nofiltre = document.createElement("button")
@@ -23,7 +22,7 @@ Promise.all([cateFetch, worksFetch])
 .then(([dataCate, dataWorks]) => {
 
 /* Boutons pour filtrer en fonction de la categorie du projet */
-    for(var i=0; i < dataCate.length; i++) {
+    for(let i=0; i < dataCate.length; i++) {
         const cate = dataCate[i]
         const filtre = document.createElement("button")
         const id = cate.id
@@ -46,35 +45,37 @@ Promise.all([cateFetch, worksFetch])
     const cate = Array.from(dataCate)
     window.localStorage.setItem("categorie", JSON.stringify(cate))
 
-
 /* Affichage des projets et stockage dans le localstorage */
     affichageWorks(dataWorks)
     const works = Array.from(dataWorks)
     window.localStorage.setItem("works", JSON.stringify(works))
 })
 
-function affichageWorks(target) {
-    for(i=0; i < target.length ; i++) {
-        const figureWorks = document.querySelector("#works")
+function affichageWork(target) {
+    const figureWorks = document.querySelector("#works")
         const work = document.createElement("figure")
         work.className = "figWork"
-        work.classList.add("projet" + target[i].id)
-
+        work.classList.add("projet" + target.id)
 
         const image = document.createElement("img")
-        image.src = target[i].imageUrl
-        image.alt = target[i].title
+        image.src = target.imageUrl
+        image.alt = target.title
 
         const title = document.createElement("figcaption")
-        title.innerHTML = target[i].title
+        title.innerHTML = target.title
 
         figureWorks.appendChild(work)
         work.appendChild(image)
         work.appendChild(title)
-    }
 }
 
-// Function to generate random number
-function randomNumber(min, max) {
-    return Math.random() * (max - min) + min;
+function affichageWorks(target) {
+    if(target.length > 0) {
+        target.forEach((target) => {
+        affichageWork(target)
+        })
+    }
+    else {
+        affichageWork(target)
+    }
 }

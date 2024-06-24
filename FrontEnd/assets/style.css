@@ -255,7 +255,18 @@ input[type="submit"]{
 	border-radius: 60px ;
 }
 
-
+.mode-edition {
+	display: none;
+	width: 100%;
+	position: sticky;
+	top: 0;
+	background-color: black;
+	color: white;
+	text-align: center;
+	font-size: 18px;
+	height: 60px;
+	line-height:60px;
+}
 
 footer nav ul {
 	display: flex;
